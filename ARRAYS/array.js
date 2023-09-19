@@ -224,7 +224,16 @@ const maxProfit = function (prices) {
   return profit;
 };
 
-
+******************************** BETTER ONE *************************************
+const maxProfit = function (prices) {
+  let profit = 0;
+  let minPrice = prices[0];
+  for(let i =0;i<prices.length;i++){
+      minPrice = Math.min(prices[i],minPrice);
+      profit = Math.max(profit, prices[i]-minPrice)
+  }
+  return profit;
+};
 
 
 */
