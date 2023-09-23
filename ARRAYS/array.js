@@ -224,7 +224,7 @@ const maxProfit = function (prices) {
   return profit;
 };
 
-******************************** BETTER ONE *************************************
+**************************************** BETTER ONE ********************************************
 const maxProfit = function (prices) {
   let profit = 0;
   let minPrice = prices[0];
@@ -261,7 +261,7 @@ Output: 1
 =================================== SOLUTION USING XOR() =======================================
 
 const singleNumber = function(nums){
-  let result = o;
+  let result = 0;
   for(let i =0; i< nums.length;i++){
     result ^= nums[i];
   }
@@ -352,12 +352,46 @@ function containsDuplicate(nums) {
 }
 
 
+------------------------- 238. Product of Array Except Self:- ----------------------------------
 
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
 
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
 
+You must write an algorithm that runs in O(n) time and without using the division operation.
 
+ 
 
+Example 1:
 
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+
+Example 2:
+
+Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
+
+======================================= SOLUTION ===============================================
+
+function productExceptSelf(nums) {
+  let result = new Array(nums.length);
+  //looping over the first part 
+
+  let leftIdx = 1;
+  for (let i = 0; i < nums.length; i++) {
+    result[i] = leftIdx;
+    left *= nums[i];
+  }
+  // Looping over the second part
+  let rightIdx = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    result[i] *= rightIdx;
+    rightIdx *= nums[i];
+  }
+
+  return result;
+}
 
 
 
