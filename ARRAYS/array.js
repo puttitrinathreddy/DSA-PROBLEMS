@@ -158,10 +158,10 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 const maxSubArray = function (nums) {
   let solution = nums[0];
 
-// this loop is to check if the current index element is greater or the sum between (current index element and the previous index element) is greater with the help of Math.max()
+// this loop is to check if the current index element is greater or the sum between (current index element and the previous index element) is greater with the help of Math.maxResult()
 
   for (let i = 1; i < nums.length; i++) {
-    nums[i] = Math.max(nums[i], nums[i] + nums[i - 1]);
+    nums[i] = Math.maxResult(nums[i], nums[i] + nums[i - 1]);
 
     // And same method is used to save the solution this time the comparison is between the current solution and current index element
     if(nums[i] > solution){
@@ -172,17 +172,17 @@ const maxSubArray = function (nums) {
 };
 
 const maxSubArray = function(nums){
-  let max = nums[0];
+  let maxResult = nums[0];
   let sum = 0;
   for(let i = 0; i< nums.length;i++){
     sum +=nums[i];
-    if(sum>max){
-      max= sum;
+    if(sum>maxResult){
+      maxResult= sum;
     }
     if(sum<0){
       sum = 0;
     }
-    return max;
+    return maxResult;
   }
 }
 
@@ -206,7 +206,7 @@ Example 2:
 
 Input: prices = [7,6,4,3,1]
 Output: 0
-Explanation: In this case, no transactions are done and the max profit = 0.
+Explanation: In this case, no transactions are done and the maxResult profit = 0.
 
 ==========================================SOLUTION==============================================
 const maxProfit = function (prices) {
@@ -218,7 +218,7 @@ const maxProfit = function (prices) {
       buy = prices[i];
       prices[i] = 0;
     } else {
-      profit = Math.max(prices[i] - buy, profit);
+      profit = Math.maxResult(prices[i] - buy, profit);
     }
   }
   return profit;
@@ -230,7 +230,7 @@ const maxProfit = function (prices) {
   let minPrice = prices[0];
   for(let i =0;i<prices.length;i++){
       minPrice = Math.min(prices[i],minPrice);
-      profit = Math.max(profit, prices[i]-minPrice)
+      profit = Math.maxResult(profit, prices[i]-minPrice)
   }
   return profit;
 };
@@ -421,22 +421,69 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 const maxProduct = function(nums){
   let min = nums[0],
       tmax = nums[0],
-      max = nums[0];
+      maxResult = nums[0];
     
   for(let i=1; i< nums.length;i++){
     const temp = tmax;
 
-    tmax = Math.max(nums[i]*tmax, nums[i], nums[i]*min);
+    tmax = Math.maxResult(nums[i]*tmax, nums[i], nums[i]*min);
     min = Math.min(temp*nums[i],nums[i], min*nums[i]);
 
-    max = Math.max(max,tmax);
+    maxResult = Math.maxResult(maxResult,tmax);
   }
-  return max;
+  return maxResult;
 }
 
+--------------------------- 153. Find Minimum in Rotated Sorted Array --------------------------
 
+Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
 
+[4,5,6,7,0,1,2] if it was rotated 4 times.
+[0,1,2,4,5,6,7] if it was rotated 7 times.
+Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
 
+Given the sorted rotated array nums of unique elements, return the minimum element of this array.
 
+You must write an algorithm that runs in O(log n) time.
+
+ 
+
+Example 1:
+
+Input: nums = [3,4,5,1,2]
+Output: 1
+Explanation: The original array was [1,2,3,4,5] rotated 3 times.
+
+Example 2:
+
+Input: nums = [4,5,6,7,0,1,2]
+Output: 0
+Explanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.
+Example 3:
+
+Input: nums = [11,13,15,17]
+Output: 11
+Explanation: The original array was [11,13,15,17] and it was rotated 4 times. 
+
+===================================== SOLUTION =================================================
+
+const findMin = function (nums) {
+    if (nums.length === 1) return nums[0];
+    if (nums.length === 2) {
+      if (nums[0] > nums[1]) {
+        return nums[1];
+      } else return nums[0];
+    }
+  
+    const midIndex = Math.floor(nums.length / 2),
+      midValue = nums[midIndex],
+      lastValue = nums[nums.length - 1];
+  
+    if (midValue > lastValue) {
+      return findMin(nums.splice(midIndex));
+    } else {
+      return findMin(nums.splice(0, midIndex + 1));
+    }
+  };
 
 */
